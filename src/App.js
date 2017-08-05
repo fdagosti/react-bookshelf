@@ -8,21 +8,30 @@ import {Route} from "react-router-dom";
 
 class BooksApp extends React.Component {
   state = {
-    books: []
+    books: {
+        currentlyReading: [],
+        wantToRead: [],
+        read: [],
+    }
   }
 
     componentDidMount(){
+        this.getAllBooks();
+    }
+
+    getAllBooks= () => {
         BooksAPI.getAll().then((books) => {
-            this.setState({books})
-        })
+        this.setState({books: {
+            currentlyReading: books.filter(book => book.shelf === "currentlyReading"),
+        wantToRead: books.filter(book => book.shelf === "wantToRead"),
+        read: books.filter(book => book.shelf === "read")
+        }})
+    })
     }
 
     moveBook = (book, category)=>{
-        console.log("move Book ",book)
-        BooksAPI.update(book, category).then(b =>{
-            console.log("server updated ",b)
-            book.shelf = category;
-            this.setState(state => ({books: state.books}))
+        BooksAPI.update(book, category).then(books =>{
+            this.getAllBooks()
         })
 
     }
@@ -38,7 +47,9 @@ class BooksApp extends React.Component {
         />
 
         <Route
-          path={process.env.PUBLIC_URL + "/search"} component={SearchPage}
+          path={process.env.PUBLIC_URL + "/search"} render={() => (
+            <SearchPage books={this.state.books} onMoveBook={this.moveBook}/>
+        )}
         />
 
       </div>

@@ -1,6 +1,7 @@
 {
   "homepage": "https://fdagosti.github.io/react-bookshelf",
   "dependencies": {
+    "escape-string-regexp": "^1.0.5",
     "gh-pages": "^1.0.0",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",

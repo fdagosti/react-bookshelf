@@ -11,13 +11,7 @@ class MainPage extends Component {
 
         const {books, onMoveBook} = this.props
 
-        const currentlyReading = books.filter(book => book.shelf === "currentlyReading");
-        const wantToRead = books.filter(book => book.shelf === "wantToRead");
-        const read = books.filter(book => book.shelf === "read");
-
-        console.log("currentlyReading",currentlyReading);
-        console.log("wanttoread",wantToRead);
-        console.log("read",read);
+        const {currentlyReading, wantToRead, read} = books
 
         return (
             <div className="list-books">
