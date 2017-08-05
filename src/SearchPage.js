@@ -1,11 +1,8 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
-import MainPage from "./MainPage";
 import {Link} from "react-router-dom";
 import Book from "./Book";
-
-import escapeRegExp from "escape-string-regexp"
 
 class SearchPage extends React.Component {
 
@@ -21,10 +18,14 @@ class SearchPage extends React.Component {
         })
     }
 
+    moveBook = (book, category)=>{
+        BooksAPI.update(book, category).then(books =>{})
+    }
+
     render(){
 
         const {query, books} = this.state;
-        const {onMoveBook} = this.props;
+
 
         return (
             <div className="search-books">
@@ -37,7 +38,7 @@ class SearchPage extends React.Component {
                 <div className="search-books-results">
                     <ol className="books-grid">
                         {books.map(book => (
-                            <li key={book.id}><Book book={book} onMoveBook={onMoveBook}/></li>
+                            <li key={book.id}><Book book={book} onMoveBook={this.moveBook}/></li>
                         ))}
                     </ol>
                 </div>

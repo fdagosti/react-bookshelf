@@ -1,15 +1,43 @@
 import React, {Component} from 'react'
 import {Link} from "react-router-dom";
 import Book from "./Book";
+import * as BooksAPI from "./BooksAPI";
 
 class MainPage extends Component {
 
+    state = {
+        books: {
+            currentlyReading: [],
+            wantToRead: [],
+            read: [],
+        }
+    }
 
+    componentDidMount(){
+        this.getAllBooks();
+    }
 
+    getAllBooks= () => {
+        BooksAPI.getAll().then((books) => {
+            this.setState({books: {
+                currentlyReading: books.filter(book => book.shelf === "currentlyReading"),
+                wantToRead: books.filter(book => book.shelf === "wantToRead"),
+                read: books.filter(book => book.shelf === "read")
+            }})
+        })
+    }
+
+    moveBook = (book, category)=>{
+        BooksAPI.update(book, category).then(books =>{
+            this.getAllBooks()
+        })
+
+    }
 
     render() {
 
-        const {books, onMoveBook} = this.props
+        const {books} = this.state
+        const onMoveBook = this.moveBook
 
         const {currentlyReading, wantToRead, read} = books
 
