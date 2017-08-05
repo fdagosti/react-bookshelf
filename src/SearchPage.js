@@ -8,13 +8,13 @@ class SearchPage extends React.Component {
 
     state = {
         query : "",
-        books : []
+        searchResult : []
     }
 
     updateQuery = (query) => {
         this.setState({query: query.trim()})
         BooksAPI.search(query, 10).then((result) => {
-            this.setState({books: (!result || result.error)? []:result})
+            this.setState({searchResult: (!result || result.error)? []:result})
         })
     }
 
@@ -24,7 +24,7 @@ class SearchPage extends React.Component {
 
     render(){
 
-        const {query, books} = this.state;
+        const {query, searchResult} = this.state;
 
 
         return (
@@ -37,7 +37,7 @@ class SearchPage extends React.Component {
                 </div>
                 <div className="search-books-results">
                     <ol className="books-grid">
-                        {books.map(book => (
+                        {searchResult.map(book => (
                             <li key={book.id}><Book book={book} onMoveBook={this.moveBook}/></li>
                         ))}
                     </ol>
