@@ -19,7 +19,7 @@ You have basically two screens on the app:
 * **Search Page**, which allows you to search for any book in the backend and add any of these books on one of your shelves
 
 ### Code specificities
-The code is made to run on GitHub Pages. Because of that, the app will not run on the host root, but instead will have a url in the form http://username.github.io/react-bookshelf/
+The code is tailored to run on GitHub Pages. Because of that, the app will not run on the host root, but instead will have a url in the form http://username.github.io/react-bookshelf/
 
 This means that each link that moves from page to page using React-router will need to take that into consideration, like the following code:
 
@@ -35,7 +35,7 @@ If you try to run the app on Github Pages, you will not be able to directly acce
 
 The main goal of this app is to learn React through the Udacity nanodegree class
 
-### Backend
+## Backend
 Backend is provided by Udacity through the `BooksAPI.js` file, which means that this app is purely the frontend code.
 
 ## create-react-app
